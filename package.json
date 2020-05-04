@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/smeruva1/moviepal#readme",
   "dependencies": {
-    "if-env": "^1.0.4"
+    "if-env": "^1.0.4",
+    "react-bootstrap": "^1.0.1"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
