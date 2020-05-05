@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import {Layout,Header,Navigation,Drawer,Content,Textfield} from 'react-mdl';
+import Navbar from '../components/Navbar';
 
 import { saveMovie, searchOMDBMovies } from '../utils/API';
 
@@ -47,7 +49,7 @@ function SearchMovies() {
                     <h1> Search for Movies!</h1>
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Row>
-                            <Col xs={12} md={8}>
+                            {/* <Col xs={12} md={8}>
                                 <Form.Control
                                     name='searchInput'
                                     value={searchInput}
@@ -56,10 +58,17 @@ function SearchMovies() {
                                     size='lg'
                                     placeholder='Search for a Movie'
                                 />
-                            </Col>
-                            <Col xs={12} md={4}>
-                                <Button type="submit">Submit Search</Button>
-                            </Col>
+                            </Col> */}
+                            <Textfield
+                            name='searchInput'
+                            value={searchInput}
+                            onChange={(event) => setSearchInput(event.target.value)}
+                           label="text"
+                           expandable
+                           expandableIcon="submit" />
+                            {/* <Col xs={12} md={4}>
+                                <Button type="submit">Submit Search</Button> */}
+                            {/* </Col> */}
                         </Form.Row>
                     </Form>
                 </Container>

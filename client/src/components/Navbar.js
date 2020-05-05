@@ -1,27 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import {Layout,Header,Navigation,Drawer,Content,Textfield} from 'react-mdl';
+// import { Navbar, Nav, Container } from 'react-bootstrap';
 
 function AppNavbar() {
     return (
-        <Navbar bg='dark' variant='dark' expand='lg'>
-            <Container fluid>
-                <Navbar.Brand as={Link} to='/'>
-                    Movie Search
-            </Navbar.Brand>
-                <Navbar.Toggle aria-controls='navbar' />
-                <Navbar.Collapse id='navbar'>
-                    <Nav className='ml-auto'>
-                        <Nav.Link as={Link} to='/'>
-                            Search for Movies
-                    </Nav.Link>
-                        <Nav.Link as={Link} to='/saved'>
-                            Watchlist
-                    </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>);
-}
+        <div className="demo-big-content" style={{height: '300px', position: 'relative'}}>>
+         
+        <Layout fixedHeader fixedTabs>
+            <Header className="header-color" title="MoviePal" scroll>
+                <Navigation>
+                    <Link to="/landingPage">home</Link>
+                    <Link to="/Search">SearchMovies</Link>
+                    <Link to="/Saved">SavedMovies</Link>
+                    
+                </Navigation>
+                <Textfield
+                    value=""
+                    onChange={() => {}}
+                    label="text"
+                    expandable
+                    expandableIcon="search"
+                />
+            </Header>
+
+            <Content>
+                <div className="page-content" />
+                
+            </Content>
+        </Layout>
+    </div>
+      );
+    }
 
 export default AppNavbar;
