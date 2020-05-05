@@ -1,11 +1,16 @@
 const router = require('express').Router();
+const path = require ('path')
 const apiRoutes = require('./api');
 
-router.use('/api',apiRoutes);
+router.use('/api', apiRoutes);
 
-//server up reach front-end in producton.
-router.use((req,res)=>{
-    res.sendFile(path.join(_dirname,'../../client/build/index.html'))
+
+//server up react front-end in producton.
+
+router.use((req, res)=>{
+ res.sendFile(path.join(__dirname, '../../client/public/index.html'))
 });
+
+
 
 module.exports = router;

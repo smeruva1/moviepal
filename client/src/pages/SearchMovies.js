@@ -21,8 +21,8 @@ function SearchMovies() {
         searchOMDBMovies(searchInput)
             .then(({ data }) => 
             {
-                // console.log(data);
-                // console.log(searchInput);
+                console.log(data);
+                console.log(searchInput);
                 setSearchedMovies(data);
             }
             )
