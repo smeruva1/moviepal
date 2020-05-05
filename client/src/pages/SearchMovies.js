@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 import { saveMovie, searchOMDBMovies } from '../utils/API';
 
@@ -19,13 +19,23 @@ function SearchMovies() {
         }
 
         searchOMDBMovies(searchInput)
-            .then(({ data }) => 
-            {
-                console.log(data);
-                console.log(searchInput);
-                setSearchedMovies(data);
-            }
-            )
+            .then(({ data }) => {
+                // console.log(JSON.stringify (data));
+                let movieData = [];
+                if (data != null && data != null) {
+                    // movieData.push(data.Search)
+                    movieData=data.Search.map((movie) => ({
+                        id: movie.imdbID,
+                        name: movie.Title,
+                        ImageURL: movie.Poster,
+                        Released: movie.Year
+                    }))
+
+                }
+                // console.log(movieData);
+                return setSearchedMovies(movieData);
+            })
+
             .then(() => setSearchInput(''))
             .catch((err) => console.log(err));
     };
@@ -39,13 +49,13 @@ function SearchMovies() {
                         <Form.Row>
                             <Col xs={12} md={8}>
                                 <Form.Control
-                                name='searchInput'
-                                value={searchInput}
-                                onChange={(event) => setSearchInput(event.target.value)}
-                                type='text'
-                                size='lg'
-                                placeholder='Search for a Movie'
-                                />                                
+                                    name='searchInput'
+                                    value={searchInput}
+                                    onChange={(event) => setSearchInput(event.target.value)}
+                                    type='text'
+                                    size='lg'
+                                    placeholder='Search for a Movie'
+                                />
                             </Col>
                             <Col xs={12} md={4}>
                                 <Button type="submit">Submit Search</Button>
@@ -54,6 +64,27 @@ function SearchMovies() {
                     </Form>
                 </Container>
             </Jumbotron>
+            <Container fluid>
+                <h2>{searchedMovies.length ? `Viewing ${searchedMovies.length} results:` : 'search for a movie to begin'}</h2>
+
+                <CardColumns>
+                    {searchedMovies.map((movie) => {
+                        // console.log(searchedMovies)
+                        return (
+
+                            <Card key = {movie.id}>
+                                
+                                {movie.ImageURL ? <Card.Img src={movie.ImageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
+                                    null}
+                                <Card.Body>
+                                    <Card.Title>{movie.name}</Card.Title>
+                                </Card.Body>
+                            </Card>
+                        )
+
+                })}
+                </CardColumns>
+            </Container>
         </>
     );
 }
