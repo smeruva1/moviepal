@@ -1,36 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-//import getSavedMovies and deleteMovie from API file
-import { getSavedMovies, deleteMovie } from '../utils/API';
+//import context from global state
+import SavedMovieContext from '../utils/SavedMovieContext';
 
+//import getSavedMovies and deleteMovie from API file
+import * as API from '../utils/API';
 
 function SavedMovies() {
+    const { movies: savedMovies, getSavedMovies } = useContext(SavedMovieContext);
 
-    //create state for our saved movies array coming from our API
-    const [savedMovies, setSavedMovies] = useState([]);
-
-    useEffect(() => {
-        getMovies();
-    }, []);
-
-    //create function to run getSavedMovies and save our saved movies from the DB to state
-    const getMovies = () => {
-        getSavedMovies()
-            .then(({ data }) => setSavedMovies(data))
+    // create function tht accepts the movie's mongo _id value as param and deletes the movie from the database
+    const handleDeleteMovie = (mongoId) => {
+        API.deleteMovie(mongoId)
+            .then(() => getSavedMovies())
             .catch((err) => console.log(err));
     };
-
-
-// create function tht accepts the movie's mongo _id value as param and deletes the movie from the database
-const handleDeleteMovie = (mongoId) => {
-    console.log(mongoId);
-
-    deleteMovie(mongoId)
-    .then(() => getMovies())
-    .catch((err) => console.log(err));
-};
-
 
     return (
         <>
@@ -51,7 +36,7 @@ const handleDeleteMovie = (mongoId) => {
                                 {movie.imageURL ? <Card.Img src={movie.imageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
                                     null}
                                 <Card.Body>
-                                    <Card.Title>{movie.name}</Card.Title>                                    
+                                    <Card.Title>{movie.name}</Card.Title>
                                     <Button className="btn-block btn-danger" onClick={() => handleDeleteMovie(movie._id)}>Delete from Watchlist</Button>
                                 </Card.Body>
                             </Card>
