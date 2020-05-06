@@ -7,7 +7,13 @@ function AppNavbar() {
         <Navbar bg='dark' variant='dark' expand='lg'>
             <Container fluid>
                 <Navbar.Brand as={Link} to='/'>
-                    Movie Search
+                    <img
+                        src="./MoviePal.PNG"
+                        // width="90"
+                         height="50"
+                        className="d-inline-block align-top"
+                        alt="moviepal logo"
+                    />{' '} MoviePal - Enrich your movie list wisely
             </Navbar.Brand>
                 <Navbar.Toggle aria-controls='navbar' />
                 <Navbar.Collapse id='navbar'>
