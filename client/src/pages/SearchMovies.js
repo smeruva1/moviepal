@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-import {Layout,Header,Navigation,Drawer,Content,Textfield} from 'react-mdl';
+import { Layout, Header, Navigation, Drawer, Content, Textfield } from 'react-mdl';
 import Navbar from '../components/Navbar';
 
 import { saveMovie, searchOMDBMovies } from '../utils/API';
@@ -26,7 +26,7 @@ function SearchMovies() {
                 let movieData = [];
                 if (data != null && data != null) {
                     // movieData.push(data.Search)
-                    movieData=data.Search.map((movie) => ({
+                    movieData = data.Search.map((movie) => ({
                         id: movie.imdbID,
                         name: movie.Title,
                         ImageURL: movie.Poster,
@@ -49,7 +49,7 @@ function SearchMovies() {
                     <h1> Search for Movies!</h1>
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Row>
-                            {/* <Col xs={12} md={8}>
+                            <Col xs={12} md={8}>
                                 <Form.Control
                                     name='searchInput'
                                     value={searchInput}
@@ -58,17 +58,17 @@ function SearchMovies() {
                                     size='lg'
                                     placeholder='Search for a Movie'
                                 />
-                            </Col> */}
-                            <Textfield
+                            </Col>
+                            {/* <Textfield
                             name='searchInput'
                             value={searchInput}
                             onChange={(event) => setSearchInput(event.target.value)}
                            label="text"
                            expandable
-                           expandableIcon="submit" />
-                            {/* <Col xs={12} md={4}>
-                                <Button type="submit">Submit Search</Button> */}
-                            {/* </Col> */}
+                           expandableIcon="submit" /> */}
+                            <Col xs={12} md={4}>
+                                <Button type="submit">Submit Search</Button>
+                            </Col>
                         </Form.Row>
                     </Form>
                 </Container>
@@ -81,8 +81,8 @@ function SearchMovies() {
                         // console.log(searchedMovies)
                         return (
 
-                            <Card key = {movie.id}>
-                                
+                            <Card key={movie.id}>
+
                                 {movie.ImageURL ? <Card.Img src={movie.ImageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
                                     null}
                                 <Card.Body>
@@ -91,7 +91,7 @@ function SearchMovies() {
                             </Card>
                         )
 
-                })}
+                    })}
                 </CardColumns>
             </Container>
         </>
