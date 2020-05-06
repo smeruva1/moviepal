@@ -1,34 +1,20 @@
 const { Schema, model } = require('mongoose');
 
 const movieSchema = new Schema({
+    // saved movie id from OMDB
+    movieId: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     name: {
         type: String,
         required: true,
     },
-    type: {
-        type: String,
-        required: true,
-    },
-    Rating: {
-        type: String,
-        required: true,
-    },
-    Released: {
-        type: String,
-        required: true,
-    },
-    Plot: {
-        type: String,
-        required: true,
-    },
-    ImageURL: {
+    imageURL: {
         type: String
     },
-    Director: {
-        type: String,
-        required: true,
-    },
-    Genre: {
+    released: {
         type: String,
         required: true,
     },

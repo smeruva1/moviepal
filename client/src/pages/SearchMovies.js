@@ -24,11 +24,11 @@ function SearchMovies() {
                 let movieData = [];
                 if (data != null && data != null) {
                     // movieData.push(data.Search)
-                    movieData=data.Search.map((movie) => ({
-                        id: movie.imdbID,
+                    movieData = data.Search.map((movie) => ({
+                        movieId: movie.imdbID,
                         name: movie.Title,
-                        ImageURL: movie.Poster,
-                        Released: movie.Year
+                        imageURL: movie.Poster || '',
+                        released: movie.Year
                     }))
 
                 }
@@ -39,6 +39,18 @@ function SearchMovies() {
             .then(() => setSearchInput(''))
             .catch((err) => console.log(err));
     };
+
+//create method to search for movies and set state on the form submit
+const handleSaveMovie = (movieId) => {
+    //find the moviein 'searchedMovies' state by the matching id
+    const movieToSave = searchedMovies.find((movie) => movie.movieId == movieId);
+
+    //send the movies data to our api
+    saveMovie(movieToSave)
+    .then(() => console.log('movie saved!'))
+    .catch((err) => console.log(err));
+};
+
 
     return (
         <>
@@ -71,18 +83,16 @@ function SearchMovies() {
                     {searchedMovies.map((movie) => {
                         // console.log(searchedMovies)
                         return (
-
-                            <Card key = {movie.id}>
-                                
-                                {movie.ImageURL ? <Card.Img src={movie.ImageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
+                            <Card key={movie.movieId}  border='info'>
+                                {movie.imageURL ? <Card.Img src={movie.imageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
                                     null}
                                 <Card.Body>
-                                    <Card.Title>{movie.name}</Card.Title>
+                                    <Card.Title>{movie.name}</Card.Title>    
+                                    <Button className="btn-block btn-info" onClick={() => handleSaveMovie(movie.movieId)}>Add to Watchlist</Button>
                                 </Card.Body>
                             </Card>
                         )
-
-                })}
+                    })}
                 </CardColumns>
             </Container>
         </>
