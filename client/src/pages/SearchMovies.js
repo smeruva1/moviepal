@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+
+import SavedMovieContext from '../utils/SavedMovieContext';
 
 import { saveMovie, searchOMDBMovies } from '../utils/API';
 
@@ -9,6 +11,9 @@ function SearchMovies() {
 
     //create state for holding our search field data
     const [searchInput, setSearchInput] = useState('');
+
+    //get saved movies from app.js on load
+    const { movies: savedMovies, getSavedMovies } = useContext(SavedMovieContext);
 
     //create method to search for Movies and set state on form submit
     const handleFormSubmit = (event) => {
@@ -24,11 +29,11 @@ function SearchMovies() {
                 let movieData = [];
                 if (data != null && data != null) {
                     // movieData.push(data.Search)
-                    movieData=data.Search.map((movie) => ({
-                        id: movie.imdbID,
+                    movieData = data.Search.map((movie) => ({
+                        movieId: movie.imdbID,
                         name: movie.Title,
-                        ImageURL: movie.Poster,
-                        Released: movie.Year
+                        imageURL: movie.Poster || '',
+                        released: movie.Year
                     }))
 
                 }
@@ -39,6 +44,18 @@ function SearchMovies() {
             .then(() => setSearchInput(''))
             .catch((err) => console.log(err));
     };
+
+    //create method to search for movies and set state on the form submit
+    const handleSaveMovie = (movieId) => {
+        //find the moviein 'searchedMovies' state by the matching id
+        const movieToSave = searchedMovies.find((movie) => movie.movieId == movieId);
+
+        //send the movies data to our api
+        saveMovie(movieToSave)
+            .then(() => getSavedMovies())
+            .catch((err) => console.log(err));
+    };
+
 
     return (
         <>
@@ -58,7 +75,7 @@ function SearchMovies() {
                                 />
                             </Col>
                             <Col xs={12} md={4}>
-                                <Button type="submit">Submit Search</Button>
+                                <Button type="submit"  variant='success' size='lg'>Submit Search</Button>
                             </Col>
                         </Form.Row>
                     </Form>
@@ -71,18 +88,21 @@ function SearchMovies() {
                     {searchedMovies.map((movie) => {
                         // console.log(searchedMovies)
                         return (
-
-                            <Card key = {movie.id}>
-                                
-                                {movie.ImageURL ? <Card.Img src={movie.ImageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
+                            <Card key={movie.movieId} border='dark'>
+                                {movie.imageURL ? <Card.Img src={movie.imageURL} alt={`the cover for ${movie.name}`} variant='top' /> :
                                     null}
                                 <Card.Body>
                                     <Card.Title>{movie.name}</Card.Title>
+                                    <Button
+                                        disabled={savedMovies.some((savedMovie) => savedMovie.movieId === movie.movieId)}
+                                        className="btn-block btn-info"
+                                        onClick={() => handleSaveMovie(movie.movieId)}>
+                                        {savedMovies.some(savedMovie => savedMovie.movieId === movie.movieId) ? 'In Watchlist!' : 'Add to Watchlist!'}
+                                    </Button>
                                 </Card.Body>
                             </Card>
                         )
-
-                })}
+                    })}
                 </CardColumns>
             </Container>
         </>

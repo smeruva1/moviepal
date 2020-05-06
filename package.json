@@ -8,7 +8,7 @@
     "start:prod": "cd server && npm start",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "heroku-postbuild": "cd client && npm run build"
+    "heroku-postbuild": "cd client && npm install &&npm run build"
   },
   "repository": {
     "type": "git",
@@ -17,15 +17,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/smeruva1/moviepal/issues"
-  },
-  "homepage": "https://github.com/smeruva1/moviepal#readme",
   "dependencies": {
-    "if-env": "^1.0.4",
-    "react-bootstrap": "^1.0.1"
+    "if-env": "^1.0.4"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
+  },
+  "engines": {
+    "node": "12.14.1"
   }
 }
