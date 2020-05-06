@@ -17,13 +17,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/smeruva1/moviepal/issues"
-  },
-  "homepage": "https://github.com/smeruva1/moviepal#readme",
   "dependencies": {
-    "if-env": "^1.0.4",
-    "react-bootstrap": "^1.0.1"
+    "if-env": "^1.0.4"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
