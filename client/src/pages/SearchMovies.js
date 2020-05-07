@@ -6,21 +6,18 @@ import Navbar from '../components/Navbar';
 import queryString from 'query-string';
 import {NewList} from './New';
 
-function SearchMovies(props) {
-    const { searchText } = queryString.parse(props.location.search)
 
+
+
+function SearchMovies() {
     //create state for holding return OMDB api data
     const [searchedMovies, setSearchedMovies] = useState([]);
 
     //create state for holding our search field data
     const [searchInput, setSearchInput] = useState('');
-    const { movies: savedMovies, getSavedMovies } = useContext(SavedMovieContext);
 
-    useEffect(() => {
-        if (searchText) {
-            searchFor(searchText)
-        }
-    }, [])
+    //get saved movies from app.js on load
+    const { movies: savedMovies, getSavedMovies } = useContext(SavedMovieContext);
 
     //create method to search for Movies and set state on form submit
     const handleFormSubmit = (event) => {
@@ -29,19 +26,15 @@ function SearchMovies(props) {
         if (!searchInput) {
             return false;
         }
-        searchFor(searchInput)
 
-    };
-
-    function searchFor(title) {
-        searchOMDBMovies(title)
+        searchOMDBMovies(searchInput)
             .then(({ data }) => {
                 // console.log(JSON.stringify (data));
                 let movieData = [];
                 if (data != null && data != null) {
                     // movieData.push(data.Search)
                     movieData = data.Search.map((movie) => ({
-                        id: movie.imdbID,
+                        movieId: movie.imdbID,
                         name: movie.Title,
                         imageURL: movie.Poster || '',
                         released: movie.Year
@@ -55,7 +48,6 @@ function SearchMovies(props) {
             .then(() => setSearchInput(''))
             .catch((err) => console.log(err));
     };
-
 
     //create method to search for movies and set state on the form submit
     const handleSaveMovie = (movieId) => {
@@ -119,7 +111,6 @@ function SearchMovies(props) {
                     })}
                 </CardColumns>
             </Container>
-            
         </>
     );
 }
