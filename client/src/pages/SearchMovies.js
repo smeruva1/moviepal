@@ -23,7 +23,7 @@ function SearchMovies() {
 
     const [filterSearch, setFilterSearch] = useState('');
     const [filterCriteria, setFilterCriteria] = useState('name');
-    const [displayOption, setDisplayOption] = useState('table');
+    const [displayOption, setDisplayOption] = useState('grid');
     // {columnName: 'name, released, etc', direction: 'ascending'}
     const [sortConfig, setSortConfig] = useState(null);
 
@@ -148,9 +148,9 @@ function SearchMovies() {
             <Container fluid>
 
 
-            <Row>
-                <br />
-            </Row>
+                <Row>
+                    <br />
+                </Row>
                 <Form className='text-light'>
                     <Row>
                         <Col xs={12} md={4}>
@@ -198,94 +198,95 @@ function SearchMovies() {
 
 
                 {displayOption === 'table' ? (
-              <Table bordered hover striped responsive='md'>
-                <thead>
-                  <tr>
-                    <th onClick={() => handleSort(null)}>#</th>
-                    <th onClick={() => handleSort('name')}>
-                      <span className='mr-3'>Name</span>
-                      {sortConfig?.columnName === 'name' && (
-                        <span>{sortConfig.direction === 'ascending' ? '⬆️' : '⬇️'}</span>
-                      )}
-                    </th>
-                    <th onClick={() => handleSort('released')}>
-                      <span className='mr-3'>released</span>
-                      {sortConfig?.columnName === 'released' && (
-                        <span>{sortConfig.direction === 'ascending' ? '⬆️' : '⬇️'}</span>
-                      )}
-                    </th>
-                    
-                    <th>Image</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sortedMovies
-                    .filter((searchedMovies) => {
-                      return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
-                    })
-                    .map((searchedMovies, idx) => {
-                      return (
-                        <tr key={searchedMovies.movieid}>
-                          <td>{idx + 1}</td>
-                          <td>{searchedMovies.name}</td>
-                          <td>{searchedMovies.released}</td>                          
-                          <td>
-                          {searchedMovies.imageURL ? <Card.Img src={searchedMovies.imageURL}   style={{ maxWidth: 150 }}
-                              fluid alt={`the cover for ${searchedMovies.name}`} variant='top' /> :
-                                    null}
+                    <Table bordered hover striped responsive='md'>
+                        <thead>
+                            <tr>
+                                <th onClick={() => handleSort(null)}>#</th>
+                                <th onClick={() => handleSort('name')}>
+                                    <span className='mr-3'>Name</span>
+                                    {sortConfig?.columnName === 'name' && (
+                                        <span>{sortConfig.direction === 'ascending' ? '⬆️' : '⬇️'}</span>
+                                    )}
+                                </th>
+                                <th onClick={() => handleSort('released')}>
+                                    <span className='mr-3'>released</span>
+                                    {sortConfig?.columnName === 'released' && (
+                                        <span>{sortConfig.direction === 'ascending' ? '⬆️' : '⬇️'}</span>
+                                    )}
+                                </th>
 
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortedMovies
+                                .filter((searchedMovies) => {
+                                    return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
+                                })
+                                .map((searchedMovies, idx) => {
+                                    return (
+                                        <tr key={searchedMovies.movieid}>
+                                            <td>{idx + 1}</td>
+                                            <td>{searchedMovies.name}</td>
+                                            <td>{searchedMovies.released}</td>
+                                            <td>
+                                                {searchedMovies.imageURL ? <Card.Img src={searchedMovies.imageURL} style={{ maxWidth: 150 }}
+                                                    fluid alt={`the cover for ${searchedMovies.name}`} variant='top' /> :
+                                                    null}
 
-                            {/* <Image
+                                                {/* <Image
                               style={{ maxWidth: 150 }}
                               fluid
                               src={searchedMovies.imageUrl}
                               alt={`picture for ${searchedMovies.name}`}
                             /> */}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </Table>
-            ) : (
-              <Row>
-                {searchedMovies
-                  .filter((searchedMovies) => {
-                    return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
-                  })
-                  .map((searchedMovies, idx) => {
-                    return (
-                    //   <Col key={searchedMovies.movieid} xs={12} md={6} lg={3} className='d-flex mb-3'>
-                    //     <Card border='primary'>
-                    //       <Card.Img
-                    //         variant='top'
-                    //         src={searchedMovies.imageUrl}
-                    //         alt={`picture for ${searchedMovies.name}`}
-                    //       />
-                    //       <Card.Body>
-                    //         <Card.Title>{searchedMovies.name}</Card.Title>
-                    //         <h5>{searchedMovies.released}</h5>                            
-                    //       </Card.Body>
-                    //     </Card>
-                    //   </Col>
-                    <Card key={searchedMovies.movieId} border='dark'>
-                                {searchedMovies.imageURL ? <Card.Img src={searchedMovies.imageURL} alt={`the cover for ${searchedMovies.name}`} variant='top' /> :
-                                    null}
-                                <Card.Body>
-                                    <Card.Title>{searchedMovies.name}</Card.Title>
-                                    <Button
-                                        disabled={savedMovies.some((savedMovie) => savedMovie.movieId === searchedMovies.movieId)}
-                                        className="btn-block btn-info"
-                                        onClick={() => handleSaveMovie(searchedMovies.movieId)}>
-                                        {savedMovies.some(savedMovie => savedMovie.movieId === searchedMovies.movieId) ? 'In Watchlist!' : 'Add to Watchlist!'}
-                                    </Button>
-                                </Card.Body>
-                            </Card>
-                    );
-                  })}
-              </Row>
-            )}
-{/* 
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                        </tbody>
+                    </Table>
+                ) : (
+                        <Row>
+                            <Container className="smallerCards">
+                                {searchedMovies
+                                    .filter((searchedMovies) => {
+                                        return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
+                                    })
+                                    .map((searchedMovies, idx) => {
+                                        return (
+                                            //   <Col key={searchedMovies.movieid} xs={12} md={6} lg={3} className='d-flex mb-3'>
+                                            //     <Card border='primary'>
+                                            //       <Card.Img
+                                            //         variant='top'
+                                            //         src={searchedMovies.imageUrl}
+                                            //         alt={`picture for ${searchedMovies.name}`}
+                                            //       />
+                                            //       <Card.Body>
+                                            //         <Card.Title>{searchedMovies.name}</Card.Title>
+                                            //         <h5>{searchedMovies.released}</h5>                            
+                                            //       </Card.Body>
+                                            //     </Card>
+                                            //   </Col>
+                                            <Card key={searchedMovies.movieId} border='dark'>
+                                                {searchedMovies.imageURL ? <Card.Img src={searchedMovies.imageURL} alt={`the cover for ${searchedMovies.name}`} variant='top' /> :
+                                                    null}
+                                                <Card.Body>
+                                                    <Card.Title>{searchedMovies.name}</Card.Title>
+                                                    <Button
+                                                        disabled={savedMovies.some((savedMovie) => savedMovie.movieId === searchedMovies.movieId)}
+                                                        className="btn-block btn-info"
+                                                        onClick={() => handleSaveMovie(searchedMovies.movieId)}>
+                                                        {savedMovies.some(savedMovie => savedMovie.movieId === searchedMovies.movieId) ? 'In Watchlist!' : 'Add to Watchlist!'}
+                                                    </Button>
+                                                </Card.Body>
+                                            </Card>
+                                        );
+                                    })}
+                            </Container>
+                        </Row>
+                    )}
+                {/* 
                 <CardColumns>
                     {searchedMovies.map((movie) => {
                         // console.log(searchedMovies)
