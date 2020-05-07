@@ -1,7 +1,12 @@
 body {
+
+  background-color: black;
+  
+
   /* background-color: #343a40; */
   /* background-color: #FF4500; */
     font-family: 'Molengo', sans-serif;
+
 }
 
 h1,
@@ -18,6 +23,7 @@ h6 {
   font-style: italic;
 }
 
+
 /* .card-columns {
   /* display: inline-block; */
   /* width: 50%;
@@ -27,6 +33,7 @@ h6 {
   background-image: url('./bannerbg.jpg');  
 }  */
 
+
 .card-columns {
   column-count: 5;
   -webkit-column-gap: 1.25rem;
@@ -35,4 +42,27 @@ h6 {
   column-gap: 1.25rem;
   orphans: 1;
   widows: 1;
+
+}
+
+.btn-info.disabled, .btn-info:disabled {
+  color: #fff;
+  background-color: rgb(61, 6, 6);
+  border-color: rgb(61, 6, 6)
+}
+.btn-info {
+  color: #fff;
+  background-color: yellowgreen;
+  border-color: yellowgreen
+}
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.bg-dark {
+  background-color: #1e466d!important;
+
 }

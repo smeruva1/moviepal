@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import SearchMovies from './pages/SearchMovies';
 import SavedMovies from './pages/SavedMovies';
+import TopRated from './pages/TopRated';
+import TvShows from  './pages/TvShows';
+import New from './pages/New';
+import Popular from './pages/Popular';
 import Navbar from './components/Navbar';
 
 import * as API from './utils/API';
@@ -36,6 +40,11 @@ function App() {
           <SavedMovieContext.Provider value={savedMovieState}>
             <Switch>
               <Route exact path='/' component={SearchMovies} />
+              <Route  exact path='/new' component={New} />
+              <Route  exact path='/top' component={TopRated} />
+              <Route  exact path='/tv' component={TvShows} />
+              <Route  exact path='/popular' component={Popular} />
+              <Route exact path='/search' component={SearchMovies} />
               <Route exact path='/saved' component={SavedMovies} />
               <Route render={() => <h1 className='display-2'>Wrong Page!</h1>} />
             </Switch>
