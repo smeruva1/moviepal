@@ -1,9 +1,15 @@
+
 import React, { useState, useContext, useMemo } from 'react';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns, Image, Table, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 import SavedMovieContext from '../utils/SavedMovieContext';
-
 import { saveMovie, searchOMDBMovies } from '../utils/API';
+import Navbar from '../components/Navbar';
+import queryString from 'query-string';
+import {NewList} from './New';
+
+
+
 
 function SearchMovies() {
     //create state for holding return OMDB api data
@@ -56,6 +62,7 @@ function SearchMovies() {
     const handleSaveMovie = (movieId) => {
         //find the moviein 'searchedMovies' state by the matching id
         const movieToSave = searchedMovies.find((movie) => movie.movieId == movieId);
+        console.log(movieToSave)
 
         //send the movies data to our api
         saveMovie(movieToSave)
@@ -94,6 +101,7 @@ function SearchMovies() {
 
     return (
         <>
+
             {/* <Jumbotron fluid bg='dark' className="text-light bg-dark"> */}
             <Container bg='dark' variant='dark'>
                 {/* <h1> Search for Movies!</h1> */}
@@ -148,6 +156,7 @@ function SearchMovies() {
                         <Col xs={12} md={4}>
                             <Form.Group>
                                 <Form.Label>Filter results</Form.Label>
+
                                 <Form.Control
                                     name='filterSearch'
                                     onChange={(e) => setFilterSearch(e.target.value)}
@@ -155,6 +164,7 @@ function SearchMovies() {
                                     type='text'
                                     placeholder='Start typing...'
                                 />
+
                             </Form.Group>
                         </Col>
                         <Col xs={12} md={4}>
