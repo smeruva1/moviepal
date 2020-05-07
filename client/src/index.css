@@ -27,7 +27,8 @@ h6 {
   background-image: url('./bannerbg.jpg');  
 }  */
 
-.card-columns {
+/* .card-columns  */
+.smallerCards{
   column-count: 5;
   -webkit-column-gap: 1.25rem;
   -moz-column-gap: 1.25rem;

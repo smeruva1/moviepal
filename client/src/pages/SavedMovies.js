@@ -12,7 +12,7 @@ function SavedMovies() {
 
     const [filterSearch, setFilterSearch] = useState('');
     const [filterCriteria, setFilterCriteria] = useState('name');
-    const [displayOption, setDisplayOption] = useState('table');
+    const [displayOption, setDisplayOption] = useState('grid');
     // {columnName: 'name, released, etc', direction: 'ascending'}
     const [sortConfig, setSortConfig] = useState(null);
 
@@ -164,35 +164,37 @@ function SavedMovies() {
                     </Table>
                 ) : (
                         <Row>
-                            {savedMovies
-                                .filter((savedMovies) => {
-                                    return savedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
-                                })
-                                .map((savedMovies, idx) => {
-                                    return (
-                                        //   <Col key={savedMovies.movieid} xs={12} md={6} lg={3} className='d-flex mb-3'>
-                                        //     <Card border='primary'>
-                                        //       <Card.Img
-                                        //         variant='top'
-                                        //         src={savedMovies.imageUrl}
-                                        //         alt={`picture for ${savedMovies.name}`}
-                                        //       />
-                                        //       <Card.Body>
-                                        //         <Card.Title>{savedMovies.name}</Card.Title>
-                                        //         <h5>{savedMovies.released}</h5>                            
-                                        //       </Card.Body>
-                                        //     </Card>
-                                        //   </Col>
-                                        <Card key={savedMovies.movieId} border='dark'>
-                                            {savedMovies.imageURL ? <Card.Img src={savedMovies.imageURL} alt={`the cover for ${savedMovies.name}`} variant='top' /> :
-                                                null}
-                                            <Card.Body>
-                                                <Card.Title>{savedMovies.name}</Card.Title>
-                                                <Button className="btn-block btn-danger" onClick={() => handleDeleteMovie(savedMovies._id)}>Delete from Watchlist</Button>
-                                            </Card.Body>
-                                        </Card>
-                                    );
-                                })}
+                            <Container className="smallerCards">
+                                {savedMovies
+                                    .filter((savedMovies) => {
+                                        return savedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
+                                    })
+                                    .map((savedMovies, idx) => {
+                                        return (
+                                            //   <Col key={savedMovies.movieid} xs={12} md={6} lg={3} className='d-flex mb-3'>
+                                            //     <Card border='primary'>
+                                            //       <Card.Img
+                                            //         variant='top'
+                                            //         src={savedMovies.imageUrl}
+                                            //         alt={`picture for ${savedMovies.name}`}
+                                            //       />
+                                            //       <Card.Body>
+                                            //         <Card.Title>{savedMovies.name}</Card.Title>
+                                            //         <h5>{savedMovies.released}</h5>                            
+                                            //       </Card.Body>
+                                            //     </Card>
+                                            //   </Col>
+                                            <Card key={savedMovies.movieId} border='dark'>
+                                                {savedMovies.imageURL ? <Card.Img src={savedMovies.imageURL} alt={`the cover for ${savedMovies.name}`} variant='top' /> :
+                                                    null}
+                                                <Card.Body>
+                                                    <Card.Title>{savedMovies.name}</Card.Title>
+                                                    <Button className="btn-block btn-danger" onClick={() => handleDeleteMovie(savedMovies._id)}>Delete from Watchlist</Button>
+                                                </Card.Body>
+                                            </Card>
+                                        );
+                                    })}
+                            </Container>
                         </Row>
                     )}
 
