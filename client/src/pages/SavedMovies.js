@@ -19,12 +19,12 @@ function SavedMovies() {
 
     return (
         <>
-            <Jumbotron fluid bg='dark' className="text-light bg-dark">
+            {/* <Jumbotron fluid bg='dark' className="text-light bg-dark"> */}
                 <Container>
                     <h1> Watch list!</h1>
 
                 </Container>
-            </Jumbotron>
+            {/* </Jumbotron> */}
 
             <Container fluid>
                 <h2>{savedMovies.length ? `Viewing ${savedMovies.length} results:` : 'You have no movies added to your watchlist'}</h2>
