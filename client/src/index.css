@@ -1,6 +1,12 @@
 body {
+
   background-color: black;
-  font-family: 'Rubik', sans-serif;
+  
+
+  /* background-color: #343a40; */
+  /* background-color: #FF4500; */
+    font-family: 'Molengo', sans-serif;
+
 }
 
 h1,
@@ -16,9 +22,16 @@ h6 {
   font-weight: 300;
   font-style: italic;
 }
-.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
-  width: 120%;
-}
+
+
+/* .card-columns {
+  /* display: inline-block; */
+  /* width: 50%;
+} */ 
+
+/* .banner-bg {
+  background-image: url('./bannerbg.jpg');  
+}  */
 
 
 .card-columns {
@@ -29,6 +42,7 @@ h6 {
   column-gap: 1.25rem;
   orphans: 1;
   widows: 1;
+
 }
 
 .btn-info.disabled, .btn-info:disabled {
@@ -50,4 +64,5 @@ h6 {
 }
 .bg-dark {
   background-color: #1e466d!important;
+
 }

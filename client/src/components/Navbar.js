@@ -27,7 +27,7 @@ function AppNavbar() {
                         height="50"
                         className="d-inline-block align-top"
                         alt="moviepal logo"
-                    />{' '} MoviePal - Enrich your movie list wisely
+                    />{' '} Enrich your movie list wisely
             </Navbar.Brand>
                 <Navbar.Toggle aria-controls='navbar' />
                 <Navbar.Collapse id='navbar'>

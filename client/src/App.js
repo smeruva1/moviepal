@@ -26,7 +26,6 @@ function App() {
     },
   });
 
-
   //get saved movies on load
   useEffect(() => {
     savedMovieState.getSavedMovies();
