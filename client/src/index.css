@@ -1,5 +1,7 @@
 body {
-  font-family: 'Rubik', sans-serif;
+  /* background-color: #343a40; */
+  /* background-color: #FF4500; */
+    font-family: 'Molengo', sans-serif;
 }
 
 h1,
@@ -14,4 +16,23 @@ h6 {
 .small {
   font-weight: 300;
   font-style: italic;
+}
+
+/* .card-columns {
+  /* display: inline-block; */
+  /* width: 50%;
+} */ 
+
+/* .banner-bg {
+  background-image: url('./bannerbg.jpg');  
+}  */
+
+.card-columns {
+  column-count: 5;
+  -webkit-column-gap: 1.25rem;
+  -moz-column-gap: 1.25rem;
+  grid-column-gap: 1.25rem;
+  column-gap: 1.25rem;
+  orphans: 1;
+  widows: 1;
 }
