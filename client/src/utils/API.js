@@ -13,8 +13,9 @@ export const deleteMovie = function (movieId) {
 };
 
 //make a search to OMDB Movie api
-export const searchOMDBMovies = function (query) {
+export const searchOMDBMovies = async (query) => {
     // console.log('https://www.omdbapi.com/?apikey=trilogy&t='+query);
     // return axios.get('https://www.omdbapi.com/?apikey=trilogy&t=', { params: { q: query }});
     return axios.get('https://www.omdbapi.com/?apikey=trilogy&s=' + query);
+      
 };

@@ -164,7 +164,8 @@ function SavedMovies() {
                     </Table>
                 ) : (
                         <Row>
-                            <Container className="smallerCards">
+                            {/* <CardColumns> */}
+                            {/* <Container className="smallerCards"> */}
                                 {savedMovies
                                     .filter((savedMovies) => {
                                         return savedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
@@ -184,6 +185,7 @@ function SavedMovies() {
                                             //       </Card.Body>
                                             //     </Card>
                                             //   </Col>
+                                            //   <Col key={savedMovies.movieid} xs={12} md={3} lg={3} className='mb-3'>
                                             <Card key={savedMovies.movieId} border='dark'>
                                                 {savedMovies.imageURL ? <Card.Img src={savedMovies.imageURL} alt={`the cover for ${savedMovies.name}`} variant='top' /> :
                                                     null}
@@ -192,9 +194,11 @@ function SavedMovies() {
                                                     <Button className="btn-block btn-danger" onClick={() => handleDeleteMovie(savedMovies._id)}>Delete from Watchlist</Button>
                                                 </Card.Body>
                                             </Card>
+                                            // </Col>
                                         );
                                     })}
-                            </Container>
+                            {/* </Container> */}
+                            {/* </CardColumns> */}
                         </Row>
                     )}
 
