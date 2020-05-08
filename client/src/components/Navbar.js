@@ -17,7 +17,7 @@ function AppNavbar() {
         }
     }, [])
 
-    return redirect ? <Redirect to={`/Search?searchText=${searchInput}`} /> : (
+    return redirect ? <Redirect to={`/?searchText=${searchInput}`} /> : (
         <Navbar bg='dark' variant='dark' expand='lg'>
             <Container fluid>
                 <Col xs={12} md={4}>
