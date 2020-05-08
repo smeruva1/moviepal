@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Card, CardColumns } from 'react-bootstrap';
 
-const PopularList = () =>  {
+const Home = () =>  {
     
     const [movies, setMovies] = useState([])
 
@@ -33,4 +33,4 @@ const PopularList = () =>  {
 }
 
 
-export default PopularList;
+export default Home;

@@ -28,11 +28,15 @@ function AppNavbar() {
                     </Nav.Link>
                     
                             <Nav.Link as={Link} to='/new'>
-                                New Movies
+                                NewMovies
                     </Nav.Link>
                         
                             <Nav.Link as={Link} to='/popular'>
                                 Popular
+                    </Nav.Link>
+
+                    <Nav.Link as={Link} to='/tv'>
+                                TVShows
                     </Nav.Link>
                         
                             <Nav.Link as={Link} to='/top'>

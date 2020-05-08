@@ -46,9 +46,6 @@ const NewList = () => {
                             <Card.Title>
                                 Title:{movie.title}
                             </Card.Title>
-                            <Button onClick={() => handleSaveMovie(movie.id)}>
-                                {savedMovies.some(savedMovie => savedMovie.id === movie.movieId) ? 'In Watchlist!' : 'Add to Watchlist!'}
-                            </Button>
                         </Card.Body>
                     </Card>
                 )

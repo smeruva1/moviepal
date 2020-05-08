@@ -6,6 +6,7 @@ import SavedMovies from './pages/SavedMovies';
 import TopRated from './pages/TopRated';
 import TvShows from  './pages/TvShows';
 import New from './pages/New';
+import Home from './pages/Home';
 import Popular from './pages/Popular';
 import Navbar from './components/Navbar';
 
@@ -39,7 +40,7 @@ function App() {
         <Container className='my-4'>
           <SavedMovieContext.Provider value={savedMovieState}>
             <Switch>
-              <Route exact path='/' ></Route>
+              <Route exact path='/' component={Home} />
               <Route  exact path='/new' component={New} />
               <Route  exact path='/top' component={TopRated} />
               <Route  exact path='/tv' component={TvShows} />
