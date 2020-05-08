@@ -39,12 +39,12 @@ function App() {
         <Container className='my-4'>
           <SavedMovieContext.Provider value={savedMovieState}>
             <Switch>
-              <Route exact path='/' component={SearchMovies} />
+              <Route exact path='/' ></Route>
               <Route  exact path='/new' component={New} />
               <Route  exact path='/top' component={TopRated} />
               <Route  exact path='/tv' component={TvShows} />
               <Route  exact path='/popular' component={Popular} />
-              {/* <Route exact path='/search' component={SearchMovies} /> */}
+              <Route exact path='/search' component={SearchMovies} />
               <Route exact path='/saved' component={SavedMovies} />
               <Route render={() => <h1 className='display-2'>Wrong Page!</h1>} />
             </Switch>

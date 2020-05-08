@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link ,useHistory} from 'react-router-dom';
 import { Navbar, Nav, Col, Container, Form } from 'react-bootstrap';
 
 function AppNavbar() {
     const [searchInput, setSearchInput] = useState('');
-    const [redirect, setRedirect] = useState(false)
-
-    useEffect(() => {
-        document.getElementById('searchTextField').addEventListener('keypress', (e) => {
-            if (e.charCode === 13) {
-                setRedirect(true);
-            }
-        })
-        return () => {
-            document.getElementById('searchTextField').removeEventListener('keypress')
-        }
-    }, [])
-
-    return redirect ? <Redirect to={`/?searchText=${searchInput}`} /> : (
+    const history = useHistory()
+    
+    return  (
         <Navbar bg='dark' variant='dark' expand='lg'>
             <Container fluid>
                 <Col xs={12} md={4}>
@@ -60,6 +49,13 @@ function AppNavbar() {
                     <Form.Control
                         id="searchTextField"
                         value={searchInput}
+                        onKeyPress={(event)=>{
+                            if (event.charCode===13){
+                                history.push(`/search?searchText=${searchInput}`)
+                                setSearchInput('')
+                            }
+                            
+                        }}
                         onChange={(event) => setSearchInput(event.target.value)}
                         type='text'
                         placeholder='Search for a Movie'

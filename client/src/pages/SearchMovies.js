@@ -268,7 +268,8 @@ function SearchMovies(props) {
                                             </Card>
                                         );
                                     })}
-                         </CardColumns>
+                            </CardColumns>
+                        
                     )}
                 {/* 
                 <CardColumns>
