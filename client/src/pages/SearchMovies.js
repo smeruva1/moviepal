@@ -23,7 +23,7 @@ function SearchMovies(props) {
         if (searchText) {
             searchFor(searchText)
         }
-    }, [])
+    }, [searchText])
 
     const [filterSearch, setFilterSearch] = useState('');
     const [filterCriteria, setFilterCriteria] = useState('name');
