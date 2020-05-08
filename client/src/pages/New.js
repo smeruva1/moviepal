@@ -35,10 +35,11 @@ const NewList = () => {
     }
 
     return (
+        <section>
         <CardColumns>
             {movies.map((movie) => {
                 return (
-                    <Card key={movie.id} border='dark'>
+                    <Card key={movie.id} border='dark' className = 'image'>
                         {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                             null}
                         <Card.Body>
@@ -53,6 +54,7 @@ const NewList = () => {
                 )
             })}
         </CardColumns>
+        </section>
     )
 
 }

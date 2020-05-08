@@ -62,3 +62,18 @@ h6 {
   background-color: #1e466d!important;
 
 }
+
+.image{
+  margin-left: 30px;
+  position: relative;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  border: 1px solid #e3e3e3;
+  border-radius: var(--imageBorderRadius);
+  overflow: hidden;
+  margin-top: 30px;
+  width: calc(((100vw - 260px - 80px - 64px) / 2));
+}
