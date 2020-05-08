@@ -233,8 +233,7 @@ function SearchMovies(props) {
                         </tbody>
                     </Table>
                 ) : (
-                        <Row>
-                            <Container className="smallerCards">
+                    <CardColumns>
                                 {searchedMovies
                                     .filter((searchedMovies) => {
                                         return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
@@ -269,8 +268,7 @@ function SearchMovies(props) {
                                             </Card>
                                         );
                                     })}
-                            </Container>
-                        </Row>
+                         </CardColumns>
                     )}
                 {/* 
                 <CardColumns>

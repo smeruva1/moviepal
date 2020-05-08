@@ -58,14 +58,10 @@ function SavedMovies() {
             {/* <Jumbotron fluid bg='dark' className="text-light bg-dark"> */}
             <Container>
                 <h1> Watch list!</h1>
-
             </Container>
-            {/* </Jumbotron> */}
 
             <Container fluid>
-                <h2>{savedMovies.length ? `Viewing ${savedMovies.length} results:` : 'You have no movies added to your watchlist'}</h2>
-
-
+                {/* <h2>{savedMovies.length ? `Viewing ${savedMovies.length} results:` : 'You have no movies added to your watchlist'}</h2> */}
                 <Row>
                     <br />
                 </Row>
@@ -163,8 +159,7 @@ function SavedMovies() {
                         </tbody>
                     </Table>
                 ) : (
-                        <Row>
-                            <Container className="smallerCards">
+                    <CardColumns>
                                 {savedMovies
                                     .filter((savedMovies) => {
                                         return savedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
@@ -194,8 +189,7 @@ function SavedMovies() {
                                             </Card>
                                         );
                                     })}
-                            </Container>
-                        </Row>
+                          </CardColumns>
                     )}
 
                 {/* <CardColumns>
