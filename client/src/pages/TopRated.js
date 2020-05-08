@@ -21,9 +21,10 @@ const NewList = () =>  {
                         {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                             null}
                         <Card.Body>
-                            <Card.Title>
+                            {/* <Card.Title>
+                                
                              Title:{movie.title}
-                            </Card.Title>
+                            </Card.Title> */}
                         </Card.Body>
                     </Card>
                 )
