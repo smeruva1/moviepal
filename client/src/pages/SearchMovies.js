@@ -1,5 +1,6 @@
 
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext, useMemo,useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns, Image, Table, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 import SavedMovieContext from '../utils/SavedMovieContext';
@@ -9,9 +10,8 @@ import queryString from 'query-string';
 import {NewList} from './New';
 
 
-
-
-function SearchMovies() {
+function SearchMovies(props) {
+    const { searchText } = queryString.parse(props.location.search)
     //create state for holding return OMDB api data
     const [searchedMovies, setSearchedMovies] = useState([]);
 
@@ -20,6 +20,11 @@ function SearchMovies() {
 
     //get saved movies from app.js on load
     const { movies: savedMovies, getSavedMovies } = useContext(SavedMovieContext);
+    useEffect(() => {
+        if (searchText) {
+            searchFor(searchText)
+        }
+    }, [searchText])
 
     const [filterSearch, setFilterSearch] = useState('');
     const [filterCriteria, setFilterCriteria] = useState('name');
@@ -35,8 +40,12 @@ function SearchMovies() {
         if (!searchInput) {
             return false;
         }
+        searchFor(searchInput)
 
-        searchOMDBMovies(searchInput)
+    };
+
+    function searchFor(title) {
+        searchOMDBMovies(title)
             .then(({ data }) => {
                 // console.log(JSON.stringify (data));
                 let movieData = [];
@@ -50,7 +59,7 @@ function SearchMovies() {
                     }))
 
                 }
-                // console.log(movieData);
+                console.log(movieData);
                 return setSearchedMovies(movieData);
             })
 
@@ -106,30 +115,8 @@ function SearchMovies() {
             <Container bg='dark' variant='dark'>
                 {/* <h1> Search for Movies!</h1> */}
                 <Form onSubmit={handleFormSubmit}>
-                    <Form.Row>
-                        <Col xs={12} md={3}>
-
-                            <img
-                                src="./searchleft.PNG"
-                                // width="90"
-                                height="50"
-                                className="d-inline-block align-top"
-                            // alt="moviepal logo"
-                            />
-                        </Col>
-                        <Col xs={12} md={4}>
-                            <Form.Control
-                                name='searchInput'
-                                value={searchInput}
-                                onChange={(event) => setSearchInput(event.target.value)}
-                                type='text'
-                                size='lg'
-                                placeholder='Search for a Movie'
-                            />
-                        </Col>
-                        <Col xs={12} md={2}>
-                            <Button type="submit" variant='success' size='lg'> Search</Button>
-                        </Col>
+                   
+                       
                         <Col xs={12} md={3}>
 
                             <img
@@ -140,7 +127,7 @@ function SearchMovies() {
                             // alt="moviepal logo"
                             />
                         </Col>
-                    </Form.Row>
+                   
                 </Form>
 
             </Container>
@@ -247,8 +234,7 @@ function SearchMovies() {
                         </tbody>
                     </Table>
                 ) : (
-                        <Row>
-                            <Container className="smallerCards">
+                    <CardColumns>
                                 {searchedMovies
                                     .filter((searchedMovies) => {
                                         return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
@@ -269,7 +255,7 @@ function SearchMovies() {
                                             //     </Card>
                                             //   </Col>
                                             <Card key={searchedMovies.movieId} border='dark'>
-                                                {searchedMovies.imageURL ? <Card.Img src={searchedMovies.imageURL} alt={`the cover for ${searchedMovies.name}`} variant='top' /> :
+                                                {searchedMovies.imageURL ? <Link to={'/moviedetails/'+searchedMovies.movieId}> <Card.Img src={searchedMovies.imageURL} alt={`the cover for ${searchedMovies.name}`} variant='top' /> </Link>:
                                                     null}
                                                 <Card.Body>
                                                     <Card.Title>{searchedMovies.name}</Card.Title>
@@ -283,8 +269,8 @@ function SearchMovies() {
                                             </Card>
                                         );
                                     })}
-                            </Container>
-                        </Row>
+                            </CardColumns>
+                        
                     )}
                 {/* 
                 <CardColumns>

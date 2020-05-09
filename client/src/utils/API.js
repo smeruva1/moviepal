@@ -4,6 +4,10 @@ export const getSavedMovies = function () {
     return axios.get('/api/movies');
 };
 
+export const getMovieDetails = function (movieId) {
+    return axios.get(`/api/movies/details/${movieId}`);
+};
+
 export const saveMovie = function (movieData) {
     return axios.post('/api/movies', movieData);
 };

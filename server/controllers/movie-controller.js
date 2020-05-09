@@ -1,11 +1,24 @@
 //import movie model
-
+const axios = require('axios');
 const { Movie } = require('../models');
 
 module.exports = {
     async getAllMovies(req, res) {
         const movies = await Movie.find();
         return res.json(movies);
+    },
+    async getMovieDetails(req, res) {
+        let movie = await Movie.findOne({movieId:req.params.id});
+        let utellydata = await axios.get(`https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com/idlookup?country=US&source=imdb&source_id=${req.params.id}`,{headers: {
+            "x-rapidapi-host": "utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com",
+            // "x-rapidapi-key": process.env.REACT_APP_UTELLY
+            "x-rapidapi-key":"9e12b195f8msh211bda4699166cbp16fb57jsn1041353b0dde"
+        }
+        } )
+        
+        
+
+        return res.json({movie, utellydata: utellydata.data});
     },
     async saveMovie(req, res) {
         console.log(req.body);
