@@ -18,6 +18,10 @@ const movieSchema = new Schema({
         type: String,
         required: true,
     },
+    rating: {
+        type: String,
+        // required: true,
+    },
 });
 
 const Movie = model('Movie', movieSchema);
