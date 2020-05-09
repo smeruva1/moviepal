@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 import { Container, Card, CardColumns } from 'react-bootstrap';
 
 const PopularList = () =>  {
@@ -12,6 +13,41 @@ const PopularList = () =>  {
                 setMovies(res.data.results);
             })
     }, [])
+
+
+
+    const Star = () => {
+
+        const [rating, setRating] = useState(null);
+        const [hover, setHover] = useState(null)
+        return (
+            <div>
+                {[...Array(5)].map((star, i) => {
+                    const rateValue = i + 1;
+
+                    return (
+                    <label>
+                        <input type='radio'
+                            name='rating'
+                            value={rateValue}
+                            onClick={() => setRating(rateValue)}
+                        />
+                        <FaStar className='star'
+                            color={rateValue <=(hover ||rating) ? "yellow" : "gray"}
+                            onMouseEnter={() => setHover(rateValue)}
+                            onMouseLeave={() => setHover(null)}
+                        />
+                    
+                    </label>
+                    )
+                })}
+
+            </div>
+        )
+    }
+
+
+
     return (
         <CardColumns>
             {movies.map((movie) => {
@@ -21,7 +57,7 @@ const PopularList = () =>  {
                             null}
                         <Card.Body>
                             <Card.Title>
-                             Title:{movie.title}
+                            <Star />
                             </Card.Title>
                         </Card.Body>
                     </Card>
