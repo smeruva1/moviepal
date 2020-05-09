@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 
 const NewList = () =>  {
+
     
     const [movies, setMovies] = useState([])
 
@@ -13,6 +15,38 @@ const NewList = () =>  {
                 setMovies(res.data.results);
             })
     }, [])
+
+
+
+    const Star = () => {
+
+        const [rating, setRating] = useState(null);
+        const [hover, setHover] = useState(null)
+        return (
+            <div>
+                {[...Array(5)].map((star, i) => {
+                    const rateValue = i + 1;
+
+                    return (
+                    <label>
+                        <input type='radio'
+                            name='rating'
+                            value={rateValue}
+                            onClick={() => setRating(rateValue)}
+                        />
+                        <FaStar className='star'
+                            color={rateValue <=(hover ||rating) ? "yellow" : "gray"}
+                            onMouseEnter={() => setHover(rateValue)}
+                            onMouseLeave={() => setHover(null)}
+                        />
+                    
+                    </label>
+                    )
+                })}
+
+            </div>
+        )
+    }
     return (
         <CardColumns>
             {movies.map((movie) => {
@@ -21,10 +55,9 @@ const NewList = () =>  {
                         {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                             null}
                         <Card.Body>
-                            {/* <Card.Title>
-                                
-                             Title:{movie.title}
-                            </Card.Title> */}
+                            <Card.Title>
+                            <Star />
+                            </Card.Title>
                         </Card.Body>
                     </Card>
                 )

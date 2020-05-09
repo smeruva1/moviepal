@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaStar } from 'react-icons/fa';
 import { Container, Card, CardColumns } from 'react-bootstrap';
 
 const Home = () => {
@@ -61,7 +62,7 @@ const Home = () => {
                                     null}
                                 <Card.Body>
                                     {/* <Card.Title>
-                                        {movie.title}
+                                    <Star />
                                     </Card.Title> */}
                                 </Card.Body>
                             </Card>
