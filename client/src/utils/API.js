@@ -34,9 +34,9 @@ export const getMovieDetails = function (movieId) {
     return axios.get(`/api/movies/details/${movieId}`);
 };
 
-export const saveMovie = function (movieData) {
-    return axios.post('/api/movies', movieData);
-};
+// export const saveMovie = function (movieData) {
+// //     return axios.post('/api/movies', movieData);
+// // };
 
 export const deleteMovie = function (movieId) {
     return axios.delete(`/api/movies/${movieId}`);

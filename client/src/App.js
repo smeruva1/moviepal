@@ -14,7 +14,7 @@ import Navbar from './components/Navbar';
 import * as API from './utils/API';
 import AuthService from './utils/auth';
 
-
+import UserInfoContext from './utils/UserInfoContext';
 //import our context object from state
 import SavedMovieContext from './utils/SavedMovieContext';
 

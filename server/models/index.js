@@ -1,8 +1,6 @@
-// const Movie = require('./Movie');
-
-// module.exports = { Movie };
+const Movie = require('./Movie');
 
 
 const User = require('./User');
 
-module.exports = { User };
+module.exports = { User, Movie };
