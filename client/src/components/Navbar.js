@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link ,useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Navbar, Nav, Col, Container, Form } from 'react-bootstrap';
 
 function AppNavbar() {
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory()
-    
-    return  (
+
+    return (
         <Navbar bg='dark' variant='dark' expand='lg'>
+            {/* <Navbar className="navbarbg" expand='lg'> */}
             <Container fluid>
                 <Col xs={12} md={4}>
                     <Navbar.Brand as={Link} to='/'>
@@ -26,39 +27,42 @@ function AppNavbar() {
                             <Nav.Link as={Link} to='/'>
                                 Home
                     </Nav.Link>
-                    
+
                             <Nav.Link as={Link} to='/new'>
                                 NewMovies
                     </Nav.Link>
-                        
+
                             <Nav.Link as={Link} to='/popular'>
                                 Popular
                     </Nav.Link>
 
-                    <Nav.Link as={Link} to='/tv'>
+                            <Nav.Link as={Link} to='/tv'>
                                 TVShows
                     </Nav.Link>
-                        
+
                             <Nav.Link as={Link} to='/top'>
                                 Top Rated
                     </Nav.Link>
-                        
+
                             <Nav.Link as={Link} to='/saved'>
                                 Watchlist
                     </Nav.Link>
-                        
-                    </Nav>
+                            {/* <Nav.Link as={Link} to='/MovieDetails'>
+                                Movie Details
+                    </Nav.Link> */}
+
+                        </Nav>
                     </Navbar.Collapse>
                 </Col><Col xs={12} md={4}>
                     <Form.Control
                         id="searchTextField"
                         value={searchInput}
-                        onKeyPress={(event)=>{
-                            if (event.charCode===13){
+                        onKeyPress={(event) => {
+                            if (event.charCode === 13) {
                                 history.push(`/search?searchText=${searchInput}`)
                                 setSearchInput('')
                             }
-                            
+
                         }}
                         onChange={(event) => setSearchInput(event.target.value)}
                         type='text'
@@ -67,7 +71,7 @@ function AppNavbar() {
                 </Col>
 
             </Container>
-        </Navbar>
+        </Navbar >
     )
 }
 

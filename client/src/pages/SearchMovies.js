@@ -1,12 +1,14 @@
 
-import React, { useState, useContext, useMemo,useEffect } from 'react';
+import React, { useState, useContext, useMemo, useEffect } from 'react';
+import { FaStar } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns, Image, Table, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 import SavedMovieContext from '../utils/SavedMovieContext';
 import { saveMovie, searchOMDBMovies } from '../utils/API';
 import Navbar from '../components/Navbar';
 import queryString from 'query-string';
-import {NewList} from './New';
+import { NewList } from './New';
 
 
 function SearchMovies(props) {
@@ -31,6 +33,36 @@ function SearchMovies(props) {
     // {columnName: 'name, released, etc', direction: 'ascending'}
     const [sortConfig, setSortConfig] = useState(null);
 
+    const Star = (props) => {
+
+        const [rating, setRating] = useState(props.rating);
+        const [hover, setHover] = useState(null)
+        return (
+            <div>
+                {[...Array(5)].map((star, i) => {
+                    const rateValue = i + 1;
+
+                    return (
+                        <label>
+                            <input type='radio'
+                                name='rating'
+                                value={rateValue}
+                                // onClick={() =>  setRating(rateValue)}
+                                onClick={() =>  props.handleRateMovie(props.movieId, rateValue)}
+                        />
+                            <FaStar className='star'
+                                color={rateValue <= (hover || rating) ? "yellow" : "gray"}
+                                onMouseEnter={() => setHover(rateValue)}
+                                onMouseLeave={() => setHover(null)}
+                            />
+
+                        </label>
+                    )
+                })}
+
+            </div>
+        )
+    }
 
     //create method to search for Movies and set state on form submit
     const handleFormSubmit = (event) => {
@@ -54,11 +86,12 @@ function SearchMovies(props) {
                         movieId: movie.imdbID,
                         name: movie.Title,
                         imageURL: movie.Poster || '',
-                        released: movie.Year
+                        released: movie.Year,
+                        rating: 0
                     }))
 
                 }
-                // console.log(movieData);
+                console.log(movieData);
                 return setSearchedMovies(movieData);
             })
 
@@ -66,11 +99,26 @@ function SearchMovies(props) {
             .catch((err) => console.log(err));
     };
 
+
+    const handleRateMovie = (movieId, rating) => {
+
+        const updatedSearchMovies = [...searchedMovies];
+        
+        updatedSearchMovies.forEach(movie => {
+            if(movie.movieId === movieId) {
+                movie.rating = rating;
+            }
+        });
+        setSearchedMovies(updatedSearchMovies);
+    }
+
+
     //create method to search for movies and set state on the form submit
     const handleSaveMovie = (movieId) => {
         //find the moviein 'searchedMovies' state by the matching id
         const movieToSave = searchedMovies.find((movie) => movie.movieId == movieId);
         console.log(movieToSave)
+        // console.log(rating)
 
         //send the movies data to our api
         saveMovie(movieToSave)
@@ -109,31 +157,8 @@ function SearchMovies(props) {
 
     return (
         <>
-
-            {/* <Jumbotron fluid bg='dark' className="text-light bg-dark"> */}
-            <Container bg='dark' variant='dark'>
-                {/* <h1> Search for Movies!</h1> */}
-                <Form onSubmit={handleFormSubmit}>
-                   
-                       
-                        <Col xs={12} md={3}>
-
-                            <img
-                                src="./searchright.PNG"
-                                // width="90"
-                                height="50"
-                                className="d-inline-block align-top"
-                            // alt="moviepal logo"
-                            />
-                        </Col>
-                   
-                </Form>
-
-            </Container>
             {/* </Jumbotron> */}
             <Container fluid>
-
-
                 <Row>
                     <br />
                 </Row>
@@ -233,43 +258,48 @@ function SearchMovies(props) {
                         </tbody>
                     </Table>
                 ) : (
-                    <CardColumns>
-                                {searchedMovies
-                                    .filter((searchedMovies) => {
-                                        return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
-                                    })
-                                    .map((searchedMovies, idx) => {
-                                        return (
-                                            //   <Col key={searchedMovies.movieid} xs={12} md={6} lg={3} className='d-flex mb-3'>
-                                            //     <Card border='primary'>
-                                            //       <Card.Img
-                                            //         variant='top'
-                                            //         src={searchedMovies.imageUrl}
-                                            //         alt={`picture for ${searchedMovies.name}`}
-                                            //       />
-                                            //       <Card.Body>
-                                            //         <Card.Title>{searchedMovies.name}</Card.Title>
-                                            //         <h5>{searchedMovies.released}</h5>                            
-                                            //       </Card.Body>
-                                            //     </Card>
-                                            //   </Col>
-                                            <Card key={searchedMovies.movieId} border='dark'>
-                                                {searchedMovies.imageURL ? <Card.Img src={searchedMovies.imageURL} alt={`the cover for ${searchedMovies.name}`} variant='top' /> :
-                                                    null}
-                                                <Card.Body>
-                                                    <Card.Title>{searchedMovies.name}</Card.Title>
-                                                    <Button
-                                                        disabled={savedMovies.some((savedMovie) => savedMovie.movieId === searchedMovies.movieId)}
-                                                        className="btn-block btn-info"
-                                                        onClick={() => handleSaveMovie(searchedMovies.movieId)}>
-                                                        {savedMovies.some(savedMovie => savedMovie.movieId === searchedMovies.movieId) ? 'In Watchlist!' : 'Add to Watchlist!'}
-                                                    </Button>
-                                                </Card.Body>
-                                            </Card>
-                                        );
-                                    })}
-                            </CardColumns>
-                        
+                        <CardColumns>
+                            {searchedMovies
+                                .filter((searchedMovies) => {
+                                    return searchedMovies[filterCriteria].toLowerCase().includes(filterSearch.toLowerCase());
+                                })
+                                .map((searchedMovies, idx) => {
+                                    return (
+                                        //   <Col key={searchedMovies.movieid} xs={12} md={6} lg={3} className='d-flex mb-3'>
+                                        //     <Card border='primary'>
+                                        //       <Card.Img
+                                        //         variant='top'
+                                        //         src={searchedMovies.imageUrl}
+                                        //         alt={`picture for ${searchedMovies.name}`}
+                                        //       />
+                                        //       <Card.Body>
+                                        //         <Card.Title>{searchedMovies.name}</Card.Title>
+                                        //         <h5>{searchedMovies.released}</h5>                            
+                                        //       </Card.Body>
+                                        //     </Card>
+                                        //   </Col>
+                                        <Card key={searchedMovies.movieId} border='dark'>
+                                            {searchedMovies.imageURL ? <Link to={'/moviedetails/' + searchedMovies.movieId}> <Card.Img src={searchedMovies.imageURL} alt={`the cover for ${searchedMovies.name}`} variant='top' /> </Link> :
+                                                null}
+                                            <Card.Body>
+                                                <Card.Title>{searchedMovies.name}</Card.Title>
+                                                {/* <Star onChange={(e) => setSearchedMovies(searchedMovies.rating = e.target.value)}/>  */}
+                                                <Star rating = {searchedMovies.rating} movieId = {searchedMovies.movieId}  handleRateMovie = {handleRateMovie}/> 
+
+                                                {console.log("*******************")}                                                
+                                                {/* {console.log({rating})}                                                 */}
+                                                <Button
+                                                    disabled={savedMovies.some((savedMovie) => savedMovie.movieId === searchedMovies.movieId)}
+                                                    className="btn-block btn-info"
+                                                    onClick={() => handleSaveMovie(searchedMovies.movieId)}>
+                                                    {savedMovies.some(savedMovie => savedMovie.movieId === searchedMovies.movieId) ? 'In Watchlist!' : 'Add to Watchlist!'}
+                                                </Button>
+                                            </Card.Body>
+                                        </Card>
+                                    );
+                                })}
+                        </CardColumns>
+
                     )}
                 {/* 
                 <CardColumns>

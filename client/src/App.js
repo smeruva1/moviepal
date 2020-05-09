@@ -5,6 +5,7 @@ import SearchMovies from './pages/SearchMovies';
 import SavedMovies from './pages/SavedMovies';
 import TopRated from './pages/TopRated';
 import TvShows from  './pages/TvShows';
+import MovieDetails from './pages/MovieDetails';
 import New from './pages/New';
 import Home from './pages/Home';
 import Popular from './pages/Popular';
@@ -48,6 +49,7 @@ function App() {
               <Route  exact path='/popular' component={Popular} />
               <Route exact path='/search' component={SearchMovies} />
               <Route exact path='/saved' component={SavedMovies} />
+              <Route exact path='/moviedetails/:id' component={MovieDetails} />
               <Route render={() => <h1 className='display-2'>Wrong Page!</h1>} />
             </Switch>
           </SavedMovieContext.Provider>
