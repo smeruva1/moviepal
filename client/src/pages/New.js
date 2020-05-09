@@ -36,7 +36,7 @@ const NewList = () => {
                             onClick={() => setRating(rateValue)}
                         />
                         <FaStar className='star'
-                            color={rateValue <=(hover ||rating) ? "yellow" : "gray"}
+                           color={rateValue <=(hover ||rating) ? "yellow" : "gray"}
                             onMouseEnter={() => setHover(rateValue)}
                             onMouseLeave={() => setHover(null)}
                         />

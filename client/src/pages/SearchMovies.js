@@ -3,7 +3,7 @@ import React, { useState, useContext, useMemo, useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { Jumbotron, Container, Row, Col, Form, Button, Card, CardColumns, Image, Table, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-
+import AuthService from '../utils/auth';
 import SavedMovieContext from '../utils/SavedMovieContext';
 import { saveMovie, searchOMDBMovies } from '../utils/API';
 import Navbar from '../components/Navbar';
@@ -115,13 +115,21 @@ function SearchMovies(props) {
 
     //create method to search for movies and set state on the form submit
     const handleSaveMovie = (movieId) => {
+
         //find the moviein 'searchedMovies' state by the matching id
         const movieToSave = searchedMovies.find((movie) => movie.movieId == movieId);
+
+        const token = AuthService.loggedIn() ? AuthService.getToken() : null;
+        if (!token) {
+      return false;
+
+        }
+
         console.log(movieToSave)
         // console.log(rating)
 
         //send the movies data to our api
-        saveMovie(movieToSave)
+        saveMovie(movieToSave , token)
             .then(() => getSavedMovies())
             .catch((err) => console.log(err));
     };

@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Navbar, Nav, Col, Container, Form } from 'react-bootstrap';
+import { Navbar, Nav, Col, Container, Form, Modal, Tab } from 'react-bootstrap';
+import SignUpForm from './SignupForm';
+import LoginForm from './LoginForm';
+
+import UserInfoContext from '../utils/UserInfoContext';
+import AuthService from '../utils/auth';
 
 function AppNavbar() {
+    const [showModal, setShowModal] = useState(false);
+    const { username } = useContext(UserInfoContext);
     const [searchInput, setSearchInput] = useState('');
     const history = useHistory()
 
@@ -47,9 +54,17 @@ function AppNavbar() {
                             <Nav.Link as={Link} to='/saved'>
                                 Watchlist
                     </Nav.Link>
-                            {/* <Nav.Link as={Link} to='/MovieDetails'>
-                                Movie Details
-                    </Nav.Link> */}
+                            {username ? (
+                                <>
+                                    <Nav.Link as={Link} to='/saved'>
+                                        See {username}'s Movies
+                  </Nav.Link>
+                                    <Nav.Link onClick={AuthService.logout}>Logout</Nav.Link>
+                                </>
+                            ) : (
+                                    <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
+                                )}
+                           
 
                         </Nav>
                     </Navbar.Collapse>
@@ -69,6 +84,34 @@ function AppNavbar() {
                         placeholder='Search for a Movie'
                     />
                 </Col>
+                <Modal size='sm' show={showModal} onHide={() => setShowModal(false)} aria-labelledby='signup-modal'>
+        {/* tab container to do either signup or login component */}
+        <Tab.Container defaultActiveKey='login'>
+          <Modal.Header closeButton>
+            <Modal.Title id='signup-modal'>
+              <Nav variant='pills'>
+                <Nav.Item>
+                  <Nav.Link eventKey='login'>Login</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='signup'>Sign Up</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Tab.Content>
+              <Tab.Pane eventKey='login'>
+                <LoginForm handleModalClose={() => setShowModal(false)} />
+              </Tab.Pane>
+              <Tab.Pane eventKey='signup'>
+                <SignUpForm handleModalClose={() => setShowModal(false)} />
+              </Tab.Pane>
+            </Tab.Content>
+          </Modal.Body>
+        </Tab.Container>
+      </Modal>
+
 
             </Container>
         </Navbar >

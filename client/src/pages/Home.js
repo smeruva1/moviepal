@@ -47,11 +47,12 @@ const Home = () => {
             <CardColumns>
             
                 {/* {renderMovies()} */}
+                
                 {(Object.keys(movies).length > 0) && movies.top_rated ?
                     (movies.top_rated.map((movie) => {
                         // console.log(movie)
                         return (
-                            <Card key={movie.title} border='dark'>
+                            <Card key={movie.titles} border='dark'>
                                 {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                                     null}
                                 <Card.Body>
@@ -99,7 +100,7 @@ const Home = () => {
                     (movies.upcoming.map((movie) => {
                         // console.log(movie)
                         return (
-                            <Card key={movie.title} border='dark'>
+                            <Card key={movie.titl} border='dark'>
                                 {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                                     null}
                                 <Card.Body>
