@@ -27,37 +27,17 @@ const Home = () => {
         setMovies(films);
     }, [])
 
-    const renderMovies = () => {
-        if (Object.keys(movies).length > 0) {
-            for (const property in movies) {
-                console.log(movies[property]);
-                movies[property].map((movie) => {
-                    console.log(movie)
-                    return (
-                        <Card key={movie.title} border='dark'>
-                            {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
-                                null}
-                            <Card.Body>
-                                <Card.Title>
-                                    {movie.title}
-                                </Card.Title>
-                            </Card.Body>
-                        </Card>
-                    )
-                })
-            }
-        }
-    }
 
     return (
         <Container>
             <CardColumns>
                 {/* {renderMovies()} */}
+                
                 {(Object.keys(movies).length > 0) && movies.top_rated ?
                     (movies.top_rated.map((movie) => {
                         console.log(movie)
                         return (
-                            <Card key={movie.title} border='dark'>
+                            <Card key={movie.titles} border='dark'>
                                 {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                                     null}
                                 <Card.Body>
@@ -81,7 +61,7 @@ const Home = () => {
                     (movies.popular.map((movie) => {
                         console.log(movie)
                         return (
-                            <Card key={movie.title} border='dark'>
+                            <Card key={movie.titl} border='dark'>
                                 {movie.poster_path ? <Card.Img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`} alt={`the cover for ${movie.title}`} variant='top' /> :
                                     null}
                                 <Card.Body>

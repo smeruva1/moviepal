@@ -11,12 +11,38 @@ import Popular from './pages/Popular';
 import Navbar from './components/Navbar';
 
 import * as API from './utils/API';
+import AuthService from './utils/auth';
 
 
 //import our context object from state
 import SavedMovieContext from './utils/SavedMovieContext';
 
 function App() {
+  const [userInfo, setUserInfo] = useState({
+    savedBooks: [],
+    username: '',
+    email: '',
+    bookCount: 0,
+    // method to get user data after logging in
+    getUserData: () => {
+      // if user's logged in get the token or return null
+      const token = AuthService.loggedIn() ? AuthService.getToken() : null;
+
+      if (!token) {
+        return false;
+      }
+      API.getMe(token)
+        .then(({ data: { username, email, savedBooks, bookCount } }) =>
+          setUserInfo({ ...userInfo, username, email, savedBooks, bookCount })
+        )
+        .catch((err) => console.log(err));
+    },
+  });
+
+  // on load, get user data if a token exists
+  useEffect(() => {
+    userInfo.getUserData();
+  });
   
 
   //create state for our saved
@@ -38,6 +64,7 @@ function App() {
     <Router>
       <>
         <Navbar />
+        <UserInfoContext.Provider value={userInfo}>
         <Container className='my-4'>
           <SavedMovieContext.Provider value={savedMovieState}>
             <Switch>
@@ -52,6 +79,7 @@ function App() {
             </Switch>
           </SavedMovieContext.Provider>
         </Container>
+        </UserInfoContext.Provider>
 
       </>
     </Router>
